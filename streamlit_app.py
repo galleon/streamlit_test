@@ -84,17 +84,16 @@ def main():
         if part not in st.session_state:
             st.session_state[part] = None
             if part == "part1":
-                st.session_state["part1"] = "Test"
+                st.session_state["part1"] = { "data" : "Test" }
 
     form1 = st.form(key="form1")
     with form1:
         part1 = st.text_input(
             "Title",
-            value=st.session_state.part1,
+            value=st.session_state.part1["data"],
         )
         if part1 and form1.form_submit_button("Random"):
             _part1(part1)
-
 
     if "validated" in st.session_state.part1:
         form2 = st.form(key="form2")
