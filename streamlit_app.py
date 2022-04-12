@@ -65,17 +65,20 @@ infinitives = [
     "to know more about archeology.",
 ]
 
+
 def _part1(title: str):
     compute_time = time.time()
-    st.session_state.part1 = {
-        "data": "\n".join([f"- {i+1}" for i in range(random.randint(0, 4))]),
-        "validated": False,
-        "time": time.time() - compute_time,
-    }
+    st.session_state.part1["data"] = "\n".join(
+        [f"- {i+1}" for i in range(random.randint(0, 4))]
+    )
+    st.session_state.part1["validated"] = False
+    st.session_state.part1["time"] = time.time() - compute_time
+
 
 def _part3():
     """Makes a random sentence from the different parts of speech. Uses a SINGULAR subject"""
     return f"{random.choice(s_nouns)} {random.choice(s_verbs)} {random.choice(s_nouns).lower() or random.choice(p_nouns).lower()} {random.choice(infinitives)}"
+
 
 def main():
     st.title("Test")
@@ -84,13 +87,13 @@ def main():
         if part not in st.session_state:
             st.session_state[part] = None
             if part == "part1":
-                st.session_state["part1"] = { "data" : "Test" }
+                st.session_state["part1"] = {"title": "Test"}
 
     form1 = st.form(key="form1")
     with form1:
         part1 = st.text_input(
             "Title",
-            value=st.session_state.part1["data"],
+            value=st.session_state.part1["title"],
         )
         if part1 and form1.form_submit_button("Random"):
             _part1(part1)
@@ -128,4 +131,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
