@@ -91,12 +91,12 @@ def main():
 
     form1 = st.form(key="form1")
     with form1:
-        part1 = st.text_input(
+        title = st.text_input(
             "Title",
             value=st.session_state.part1["title"],
         )
-        if part1 and form1.form_submit_button("Random"):
-            _part1(part1)
+        if title and form1.form_submit_button("Random"):
+            _part1(title)
 
     if "validated" in st.session_state.part1:
         form2 = st.form(key="form2")
