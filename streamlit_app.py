@@ -1,4 +1,5 @@
 import streamlit as st
+from copy import copy
 import random
 import time
 
@@ -115,18 +116,25 @@ def main():
         lines = st.session_state.part2["data"].split("\n")
 
         if st.session_state.part3 is None:
-            st.session_state.part3 = [{"data": None} for i in range(len(lines))]
-
-        for i in range(len(lines)):
-            if st.session_state.part3[i]["data"] is None:
-                st.session_state.part3[i]["data"] = _part3()
+            st.session_state.part3 = {}
+            for line in lines:
+                st.session_state.part3[line] = { "data": _part3()}
+        else:
+            # part3 does exist but might be smaller or bigger than # lines
+            tmp = copy(st.session_state.part3)
+            st.session_state.part3 = {}
+            for line in lines:
+                if line in tmp:
+                    st.session_state.part3[line] = tmp[line]
+                else:
+                    st.session_state.part3[line] = { "data": _part3()}
 
         form3 = [st.form(key=f"form3_{i}") for i in range(len(lines))]
         for i, line in enumerate(lines):
             with form3[i]:
-                _ = st.text_area(f"{line}", st.session_state.part3[i]["data"], 200)
+                _ = st.text_area(f"{line}", st.session_state.part3[line]["data"], 200)
                 if form3[i].form_submit_button("Change"):
-                    st.session_state.part3[i]["data"] = _part3()
+                    st.session_state.part3[line]["data"] = _part3()
 
 
 if __name__ == "__main__":
