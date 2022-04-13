@@ -1,3 +1,5 @@
+from turtle import onclick
+from requests import session
 import streamlit as st
 from copy import copy
 import random
@@ -81,6 +83,9 @@ def _part3():
     return f"{random.choice(s_nouns)} {random.choice(s_verbs)} {random.choice(s_nouns).lower() or random.choice(p_nouns).lower()} {random.choice(infinitives)}"
 
 
+def click_form(line:str=""):
+    st.session_state.part3[line]["data"] = _part3()
+
 def main():
     st.title("Test")
 
@@ -98,6 +103,8 @@ def main():
         )
         if title and form1.form_submit_button("Random"):
             _part1(title)
+            if st.session_state.part2:
+                st.session_state.part2["validated"] = False
 
     if "validated" in st.session_state.part1:
         form2 = st.form(key="form2")
@@ -132,9 +139,12 @@ def main():
         form3 = [st.form(key=f"form3_{i}") for i in range(len(lines))]
         for i, line in enumerate(lines):
             with form3[i]:
-                _ = st.text_area(f"{line}", st.session_state.part3[line]["data"], 200)
-                if form3[i].form_submit_button("Change"):
-                    st.session_state.part3[line]["data"] = _part3()
+                _ = st.text_area(f"{line}", st.session_state.part3[line]["data"], 200, disabled=True)
+                if form3[i].form_submit_button("Change", on_click=click_form, args=(line,)):
+                    pass
+                    # Need a form_submit_button to trigger the on_click callback
+
+    st.write(st.session_state)
 
 
 if __name__ == "__main__":
