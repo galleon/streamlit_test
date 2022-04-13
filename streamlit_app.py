@@ -144,8 +144,6 @@ def main():
                     pass
                     # Need a form_submit_button to trigger the on_click callback
 
-    st.write(st.session_state)
-
 
 if __name__ == "__main__":
     main()
