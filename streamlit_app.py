@@ -1,5 +1,3 @@
-from turtle import onclick
-from requests import session
 import streamlit as st
 from copy import copy
 import random
