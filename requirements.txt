@@ -1,0 +1,14 @@
+deepspeech==0.9.3
+fastapi==0.78.0
+Pillow==9.1.0
+pydantic==1.9.1
+pydub==0.25.1
+python-dotenv==0.20.0
+python-multipart==0.0.5
+requests==2.27.1
+streamlit==1.10.0
+streamlit-drawable-canvas==0.9.1
+streamlit-option-menu==0.3.2
+streamlit-webrtc==0.37.0
+urllib3==1.26.9
+uvicorn==0.17.6
